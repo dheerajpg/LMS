@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 interface TitleFormProps {
-  intitalData: {
+  initialData: {
     title: string;
   }
   courseId: string;

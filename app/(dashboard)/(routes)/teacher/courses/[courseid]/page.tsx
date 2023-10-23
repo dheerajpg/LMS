@@ -63,8 +63,7 @@ const CourseIdPage = async ({
           </div>
           <TitleForm
             initialData={course}
-            courseId={course.id} 
-
+            courseId={course.id}
           />
         </div>
       </div>
