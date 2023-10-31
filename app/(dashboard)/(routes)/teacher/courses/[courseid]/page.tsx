@@ -7,25 +7,20 @@ import { redirect } from "next/navigation";
 import { TitleForm } from "./_components/title_form";
 import { DescriptionForm } from "./_components/description_form";
 
-const CourseIdPage = async ({
-  params
-}: {
-  params: { courseId: string }
-}) => {
+const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
 
   if (!userId) {
-    return redirect("/")
+    return redirect("/");
   }
   const course = await db.course.findUnique({
-    where:
-    {
-      id: params.courseId
-    }
+    where: {
+      id: params.courseId,
+    },
   });
 
   if (!course) {
-    return redirect("/")
+    return redirect("/");
   }
 
   const requiredFields = [
@@ -34,21 +29,18 @@ const CourseIdPage = async ({
     course.imageUrl,
     course.price,
     course.categoryId,
-  ]
+  ];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
 
-  const completionText = `(${completedFields}/${totalFields})`
-
+  const completionText = `(${completedFields}/${totalFields})`;
 
   return (
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-medium">
-            Course Setup
-          </h1>
+          <h1 className="text-2xl font-medium">Course Setup</h1>
           <span className="text-sm text-slate-70">
             Complete all the fields to publish your course {completionText}
           </span>
@@ -58,21 +50,13 @@ const CourseIdPage = async ({
         <div>
           <div className="flex items-center gap-x-2">
             <IconBatch icon={LayoutDashboard} />
-            <h2 className="text-xl">
-              Customize your course
-            </h2>
+            <h2 className="text-xl">Customize your course</h2>
           </div>
-          <TitleForm
-            initialData={course}
-            courseId={course.id}
-          />
-          <DescriptionForm
-            initialData={course}
-            courseId={course.id}
-          />
+          <TitleForm initialData={course} courseId={course.id} />
+          <DescriptionForm initialData={course} courseId={course.id} />
         </div>
       </div>
     </div>
   );
-}
+};
 export default CourseIdPage;
